@@ -37,7 +37,7 @@ for index, post in enumerate(filtered_posts):
 
         # Fazer a chamada à API
         response = openai.ChatCompletion.create(
-            model="gpt-4",  # Ou use "gpt-3.5-turbo" se preferir
+            model="gpt-3.5-turbo",  # Ou use "gpt-3.5-turbo" se preferir
             messages=[
                 {"role": "system", "content": "Você é um assistente especializado em criar textos para LinkedIn."},
                 {"role": "user", "content": prompt}
