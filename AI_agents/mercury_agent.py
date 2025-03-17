@@ -29,7 +29,7 @@ def generate_mercury_post(reddit_file_path):
     }
     
     model = genai.GenerativeModel(
-        model_name="gemini-1.5-flash-8b",
+        model_name="gemini-2.0-flash",
         generation_config=generation_config,
     )
     
@@ -52,17 +52,18 @@ def generate_mercury_post(reddit_file_path):
     prompt = f"""
 Você é o Mercury, um agente de IA especialista em notícias do mundo cripto para a comunidade "Flash Crypto". 
 Sua tarefa é criar uma postagem noticiosa que aborde as últimas novidades do universo das criptomoedas e não ultrapassse de nenhuma forma 280 caracteres. 
-Utilize o seguinte tópico e texto como inspiração:
+Utilize o seguinte tópico e texto como inspiração e, obrigatoriamente, inclua o URL da notícia no final da postagem:
 
 Título: {chosen_post['title']}
 Conteúdo: {chosen_post.get('selftext', '')}
+URL: {chosen_post.get('url', '')}
 
 Crie uma notícia bem estruturada com os seguintes elementos:
 - Um título chamativo e informativo.
 - Um texto jornalístico que introduza os fatos, apresente dados relevantes e contextualize as informações, mantendo o tom informativo e original.
 
 A notícia deve ser única, utilizando os dados do post apenas como inspiração, sem copiar literalmente o conteúdo.
-O output deve ter no máximo 280 caracteres e ser escrito em TXT puro!!!!
+O output deve ter no máximo 280 caracteres e ser escrito em TXT puro!
     """
     
     # Iniciar a sessão de chat com o modelo Gemini
