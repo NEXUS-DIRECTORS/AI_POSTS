@@ -1,20 +1,58 @@
 # scheduler.py
 
-from apscheduler.schedulers.blocking import BlockingScheduler
+import os
+import json
+import threading
+from flask import Flask, request, jsonify
+from apscheduler.schedulers.background import BackgroundScheduler
+from dotenv import load_dotenv
+
+# importa suas tarefas
 from main_mercury import main as mercury_main
 from content_colector.api_connector_reddit import collect_reddit_posts
+from post.post_to_x import post_to_x
 
-if __name__ == "__main__":
-    scheduler = BlockingScheduler()
-    
-    # Agendar o fluxo do Mercury a cada 3 horas
+load_dotenv()
+
+app = Flask(__name__)
+
+# ------------------------
+# Webhook endpoint Ghost
+# ------------------------
+@app.route('/ghost-webhook', methods=['POST'])
+def ghost_webhook():
+    data = request.get_json()
+    post_info = data.get("post", {})
+    title = post_info.get("title")
+    post_url = post_info.get("url")
+    if not title or not post_url:
+        return jsonify({"message": "Payload incompleto"}), 400
+
+    message = f"🚀 Nova publicação no Flash Crypto Blog:\n\n{title}\n\nLeia mais: {post_url}"
+    post_to_x(message)
+    return jsonify({"message": "Tweet enviado com sucesso"}), 200
+
+# ------------------------
+# Configura e inicia o scheduler em background
+# ------------------------
+def start_scheduler():
+    scheduler = BackgroundScheduler()
+    # job Mercury a cada 3 horas
     scheduler.add_job(mercury_main, 'interval', hours=3, id='mercury_job')
-    
-    # Agendar a coleta do Reddit a cada 24 horas
+    # job Reddit a cada 24 horas
     scheduler.add_job(collect_reddit_posts, 'interval', hours=24, id='reddit_job')
-    
+    scheduler.start()
     print("Scheduler iniciado:")
     print("- Mercury postará a cada 3 horas.")
     print("- Coleta do Reddit ocorrerá a cada 24 horas.")
-    
-    scheduler.start()
+
+# ------------------------
+# Rodando tudo junto
+# ------------------------
+if __name__ == "__main__":
+    # inicia scheduler numa thread separada (opcional, mas garante que ele não bloqueie o Flask)
+    threading.Thread(target=start_scheduler, daemon=True).start()
+
+    # Levanta o Flask para receber o webhook
+    port = int(os.getenv("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)

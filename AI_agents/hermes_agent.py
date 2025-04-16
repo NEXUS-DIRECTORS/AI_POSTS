@@ -36,11 +36,18 @@ Campanha: {campaign_name}
 Link de Afiliado: {affiliate_link}
 Texto de Anúncio: {announcement_text}
 
-Crie uma postagem que contenha:
-- Um corpo explicativo com informações detalhadas sobre a campanha,
-- Um call-to-action para que os usuários participem.
+Crie uma notícia otimizada para SEO com os seguintes elementos:
+- Inicie com um parágrafo `<p>` resumo que resuma a notícia e inclua palavras-chave estratégicas para melhorar o ranking nos motores de busca.
+- Estruture o conteúdo com subtítulos utilizando `<h2>` e `<h3>` para facilitar a leitura e a indexação, separando diferentes seções informativas.
+- Insira meta descrições, atribuições alt para imagens (caso inclua imagens) e links internos/externos pertinentes para enriquecer o SEO da página.
+- Desenvolva um texto jornalístico que apresente os fatos, dados relevantes e contexto sobre o tema, mantendo o tom informativo e original, sem copiar literalmente o conteúdo fornecido.
+- Evite exageros na repetição das palavras-chave (keyword stuffing) e mantenha a naturalidade e fluidez do texto.
 
-Utilize os dados de forma original e criativa, sem copiar literalmente o texto de anúncio. Lembre - se de respeitar o limite de 280 caracteres.
+Por favor, gere um JSON válido no seguinte formato:
+{{
+  "title": "Texto do título (sem tags HTML)",
+  "html": "Conteúdo da notícia em HTML, com tags, parágrafos e subtítulos se necessário"
+}}
     """
     
     chat_session = model.start_chat(history=[])
