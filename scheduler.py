@@ -21,16 +21,35 @@ app = Flask(__name__)
 # ------------------------
 @app.route('/ghost-webhook', methods=['POST'])
 def ghost_webhook():
-    data = request.get_json()
-    post_info = data.get("post", {})
+    data = request.get_json(force=True)
+    print("👀 Payload recebido do Ghost:", json.dumps(data))  # DEBUG
+    
+    # Tenta diferentes caminhos onde o Ghost pode colocar os dados do post
+    post_info = None
+    for key in ("post", "current",):
+        if data.get(key):
+            post_info = data[key]
+            break
+    # Em alguns casos o Ghost envia em data["data"]["post"]
+    if not post_info and data.get("data", {}).get("post"):
+        post_info = data["data"]["post"]
+    # Ou como lista em data["posts"]
+    if not post_info and isinstance(data.get("posts"), list):
+        post_info = data["posts"][0]
+    
+    if not post_info:
+        return jsonify({"message": "Payload não contém post"}), 400
+
     title = post_info.get("title")
     post_url = post_info.get("url")
+
     if not title or not post_url:
-        return jsonify({"message": "Payload incompleto"}), 400
+        return jsonify({"message": "Payload incompleto: falta título ou url"}), 400
 
     message = f"🚀 Nova publicação no Flash Crypto Blog:\n\n{title}\n\nLeia mais: {post_url}"
     post_to_x(message)
     return jsonify({"message": "Tweet enviado com sucesso"}), 200
+
 
 # ------------------------
 # Configura e inicia o scheduler em background
