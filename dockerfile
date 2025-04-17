@@ -15,6 +15,5 @@ COPY . .
 EXPOSE 5000
 
 
-
 # Comando padrão para inicializar o serviço
 CMD ["python", "scheduler.py"]
