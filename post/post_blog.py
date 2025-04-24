@@ -59,7 +59,7 @@ def upload_feature_image(image_path):
         files = {
             "file": (os.path.basename(image_path), img, "image/png")
         }
-        response = requests.post(upload_url, headers=headers, files=files)
+        response = requests.post(upload_url, headers=headers, files=files, verify=False)
         
     if response.status_code in [200, 201]:
         # O response.json() normalmente contém o objeto image com a URL
