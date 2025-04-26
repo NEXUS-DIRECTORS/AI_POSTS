@@ -1,5 +1,5 @@
 # scheduler.py
-
+import os, yaml, pathlib
 import os
 import json
 import threading
@@ -11,6 +11,13 @@ from dotenv import load_dotenv
 from main_mercury import main as mercury_main
 from content_colector.api_connector_reddit import collect_reddit_posts
 from post.post_to_x import post_to_x
+
+CONFIG_NAME = os.getenv("CONFIG_FILE", "flash_crypto.yml")
+CONFIG_PATH = pathlib.Path("configs") / CONFIG_NAME
+
+with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+    CFG = yaml.safe_load(f)
+
 
 load_dotenv()
 
@@ -48,9 +55,9 @@ def ghost_webhook():
 def start_scheduler():
     scheduler = BackgroundScheduler()
     # job Mercury a cada 3 horas
-    scheduler.add_job(mercury_main, 'interval', hours=3, id='mercury_job')
+    scheduler.add_job(mercury_main, 'interval', hours=CFG["mercury_frequency_hours"], id='mercury_job')
     # job Reddit a cada 24 horas
-    scheduler.add_job(collect_reddit_posts, 'interval', hours=24, id='reddit_job')
+    scheduler.add_job(collect_reddit_posts, 'interval', hours=CFG["reddit_frequency_hours"], id='reddit_job')
     scheduler.start()
     print("Scheduler iniciado:")
     print("- Mercury postará a cada 3 horas.")

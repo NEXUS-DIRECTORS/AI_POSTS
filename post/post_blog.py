@@ -1,10 +1,17 @@
 # post/post_blog.py
-
+import os, yaml, pathlib
 import os
 import time
 import jwt
 import requests
 import json
+
+CONFIG_NAME = os.getenv("CONFIG_FILE", "flash_crypto.yml")
+CONFIG_PATH = pathlib.Path("configs") / CONFIG_NAME
+
+with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+    CFG = yaml.safe_load(f)
+
 
 def generate_jwt(secret, key_id):
     """
@@ -87,10 +94,10 @@ def create_blog_post(mercury_content, feature_image_url=None):
     post_data = {
         "posts": [
             {
-                "tags": ["News", "Crypto"],
+                "tags": CFG["ghost_tags"],
                 "title": mercury_content.get("title", "Notícia do Mercury"),
                 "html": mercury_content.get("html", "<p>Conteúdo indisponível.</p>"),
-                "status": "draft",
+                "status": CFG["publish_status"],
                 "feature_image": feature_image_url  # URL da imagem que foi feita o upload
             }
         ]
