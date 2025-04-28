@@ -1,9 +1,16 @@
 # content_colector/api_connector_reddit.py
 
-import os
+import os, pathlib, yaml
 import json
 import praw
 from dotenv import load_dotenv
+
+CONFIG_NAME = os.getenv("CONFIG_FILE", "flash_crypto.yml")
+CFG_PATH = pathlib.Path("configs") / CONFIG_NAME
+
+with open(CFG_PATH, "r", encoding="utf-8") as fh:
+    CFG = yaml.safe_load(fh)
+CONFIG_SUBREDDIT = CFG['subreddits']
 
 def collect_reddit_posts():
     """
@@ -21,7 +28,7 @@ def collect_reddit_posts():
     )
     
     # Lista de subreddits a serem consultados
-    subreddits = ['criptomoedas', 'CryptoCurrency']
+    subreddits = CONFIG_SUBREDDIT
     
     # Lista para armazenar os posts coletados
     posts_reddit = []

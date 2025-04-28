@@ -13,7 +13,7 @@ with open(CFG_PATH, "r", encoding="utf-8") as fh:
     CFG = yaml.safe_load(fh)
 
 PROMPT_TEMPLATE: str = CFG["prompt_template"]
-KEYWORDS = [k.lower() for k in CFG.get("reddit_keywords", [])] or ["crypto"]
+#KEYWORDS = [k.lower() for k in CFG.get("reddit_keywords", [])] or ["crypto"]
 
 # ------------------------------------------------------------------
 def generate_mercury_post(reddit_file_path: str) -> dict:
@@ -35,8 +35,8 @@ def generate_mercury_post(reddit_file_path: str) -> dict:
         raise RuntimeError("Arquivo JSON de tópicos está vazio.")
 
     # ---- Escolhe um post que contenha as palavras-chave ----------
-    filt = [p for p in posts if any(k in p["title"].lower() for k in KEYWORDS)]
-    chosen = random.choice(filt or posts)
+    #filt = [p for p in posts if any(k in p["title"].lower() for k in KEYWORDS)]
+    chosen = random.choice(posts)
 
     # ---- Preenche o template de prompt ---------------------------
     prompt = PROMPT_TEMPLATE.format(

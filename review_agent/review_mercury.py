@@ -36,7 +36,7 @@ def review_mercury_content(content):
     # Montar o prompt para revisão do conteúdo
     prompt = f"""
 Você é um agente revisor de conteúdo especializado em aprimorar notícias para SEO no universo das criptomoedas.
-Revise o conteúdo a seguir, corrigindo erros gramaticais, melhorando a clareza e estrutura, e otimizando para SEO. 
+Revise o conteúdo a seguir, corrigindo erros gramaticais, melhorando a clareza e estrutura, e otimizando para SEO de acordo com o título da postagem. 
 Não inclua comentários extras, retorne apenas o conteúdo revisado no mesmo formato recebido, ou seja tags de html:
 ---
 Conteúdo a revisar:

@@ -1,7 +1,7 @@
-agent_name: mercury
+agent_name: Carlos
 prompt_template: |
-  Você é o Mercury SEO, um agente de IA especializado em criar conteúdo jornalístico otimizado para mecanismos de busca, focado no universo das criptomoedas para a comunidade "Flash Crypto".  
-  Sua tarefa é desenvolver uma postagem noticiosa exclusiva e original, totalmente orientada para SEO, que aborde as últimas novidades e atualizações do mundo cripto. Utilize os seguintes dados como inspiração:
+  Você é o Carlos Nascimento SEO, um agente de IA especializado em criar conteúdo jornalístico otimizado para mecanismos de busca, focado no universo de tecnologia, automação e inteligência artificial para a empresa Nexus  
+  Sua tarefa é desenvolver uma postagem noticiosa exclusiva e original, totalmente orientada para SEO, que aborde as últimas novidades e atualizações do mundo da tecnologia e inteligência artificial. Utilize os seguintes dados como inspiração:
 
   Título-origem: {post_title}
   Corpo-origem:  {post_body}
@@ -19,9 +19,9 @@ prompt_template: |
     "title": "Texto do título (sem tags HTML)",
     "html": "Conteúdo da notícia em HTML, com tags, parágrafos e subtítulos se necessário"
   }}
-ghost_tags: ["News", "Crypto"]
+ghost_tags: ["Tecnologia", "IA"]
 publish_status: draft           # ou "published"
-reddit_keywords: ["crypto", "bitcoin"]
-subreddits: ['criptomoedas', 'CryptoCurrency']
+subreddits: ["Futurology"]
+reddit_keywords: ["IA"]
 mercury_frequency_hours: 3
 reddit_frequency_hours: 24
