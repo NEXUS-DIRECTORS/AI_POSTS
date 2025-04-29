@@ -53,6 +53,9 @@ def ghost_webhook():
 # Configura e inicia o scheduler em background
 # ------------------------
 def start_scheduler():
+    # 1️⃣ Coleta inicial assim que o serviço sobe
+    print("Coletando tópicos do Reddit na inicialização…")
+    collect_reddit_posts()
     scheduler = BackgroundScheduler()
     # job Mercury a cada 3 horas
     scheduler.add_job(mercury_main, 'interval', hours=CFG["mercury_frequency_hours"], id='mercury_job')
