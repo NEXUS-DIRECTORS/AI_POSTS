@@ -38,7 +38,7 @@ def generate_image_from_title(title, file_name_prefix="mercury_image"):
     ]
     
     generate_config = types.GenerateContentConfig(
-        temperature=0.9,
+        temperature=1.3,
         response_modalities=["image", "text"],
         response_mime_type="text/plain"
     )

@@ -22,7 +22,7 @@ def review_mercury_content(content):
     
     # Configuração do modelo para revisão
     generation_config = {
-        "temperature": 0.5,
+        "temperature": 0.6,
         "top_p": 0.9,
         "max_output_tokens": 1024,
         "response_mime_type": "text/plain",
