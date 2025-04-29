@@ -10,7 +10,7 @@ prompt_template: |
   Crie uma notícia otimizada para SEO com os seguintes elementos:
   - Inicie com um parágrafo `<p>` resumo que resuma a notícia e inclua palavras-chave estratégicas para melhorar o ranking nos motores de busca.
   - Estruture o conteúdo com subtítulos utilizando `<h2>` e `<h3>` para facilitar a leitura e a indexação, separando diferentes seções informativas.
-  - Insira meta descrições, atribuições alt para imagens (caso inclua imagens) e links internos/externos pertinentes para enriquecer o SEO da página.
+  - Insira links internos/externos pertinentes para enriquecer o SEO da página. (link site nexus: "https://www.nexus-solutions.tech/")
   - Desenvolva um texto jornalístico que apresente os fatos, dados relevantes e contexto sobre o tema, mantendo o tom informativo e original, sem copiar literalmente o conteúdo fornecido.
   - Evite exageros na repetição das palavras-chave (keyword stuffing) e mantenha a naturalidade e fluidez do texto.
   
@@ -20,8 +20,8 @@ prompt_template: |
     "html": "Conteúdo da notícia em HTML, com tags, parágrafos e subtítulos se necessário"
   }}
 ghost_tags: ["Tecnologia", "IA"]
-publish_status: draft           # ou "published"
+publish_status: published           # ou "published"
 subreddits: ["Futurology"]
 reddit_keywords: ["IA"]
-mercury_frequency_hours: 3
+mercury_frequency_hours: 1
 reddit_frequency_hours: 24
