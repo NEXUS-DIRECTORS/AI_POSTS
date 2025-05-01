@@ -23,5 +23,5 @@ ghost_tags: ["Tecnologia", "IA"]
 publish_status: published           # ou "published"
 subreddits: ["Futurology"]
 reddit_keywords: ["IA"]
-mercury_frequency_hours: 1
+mercury_frequency_hours: 3
 reddit_frequency_hours: 24
